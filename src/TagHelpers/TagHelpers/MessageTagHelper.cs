@@ -20,6 +20,7 @@ namespace TagHelpers.TagHelpers
 
 		public override void Process(TagHelperContext context, TagHelperOutput output)
 		{
+			output.TagName = "div";
 			output.TagMode = TagMode.StartTagAndEndTag;
 			var content = $@"<h{LevelValue}>{MessageValue}</h{LevelValue}>";
 			output.Content.AppendHtml(content);
