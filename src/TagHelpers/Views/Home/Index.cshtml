@@ -1,32 +1,63 @@
-﻿<link rel="stylesheet" href="@Url.Content("~/css/bootstrap.css")">
+﻿@model TagHelpers.Model.SomeModel
 
-<h1>Index</h1>
+@*<script asp-src-include="~/js/jquery.js"></script>
+<script asp-src-include="~/js/bootstrap.js"></script>*@
+<environment names="Development">
+    <script asp-src-include="~/js/**/*.js" asp-src-exclude="~/js/**/*.min.js"></script>
+</environment>
+<environment names="Staging, Production">
+    <script asp-src-include="~/js/**/*.min.js"></script>
+</environment>
 
-<a asp-controller="Home" asp-action="Index">Home</a>
+    <link rel="stylesheet" href="@Url.Content("~/css/bootstrap.css")">
 
-<span asp-message-value="Help!" asp-level-value="2" />
-<div><h1>Help!</h1></div>
+    <h1>Index</h1>
 
-<div class="panel">
-    <div class="panel-header">
-        <p>header...</p>
+    <div asp-validation-summary="ValidationSummary.All"></div>
+
+    <a asp-controller="Home" asp-action="Index">Home</a>
+
+    <span asp-message-value="Help!" asp-level-value="2" />
+    <div><h1>Help!</h1></div>
+
+    <div class="panel">
+        <div class="panel-header">
+            <p>header...</p>
+        </div>
+        <div class="panel-body">
+            <p>body...</p>
+        </div>
+        <div class="panel-footer">
+            <p>footer...</p>
+        </div>
     </div>
-    <div class="panel-body">
-        <p>body...</p>
-    </div>
-    <div class="panel-footer">
-        <p>footer...</p>
-    </div>
-</div>
 
-<panel>
-    <panel-header>
-        <p>header...</p>
-    </panel-header>
-    <panel-body>
-        <p>body...</p>
-    </panel-body>
-    <panel-footer>
-        <p>footer...</p>
-    </panel-footer>
-</panel>
+    <panel>
+        <panel-header>
+            <p>header...</p>
+        </panel-header>
+        <panel-body>
+            <p>body...</p>
+        </panel-body>
+        <panel-footer>
+            <p>footer...</p>
+        </panel-footer>
+    </panel>
+
+    <cache expires-after="@TimeSpan.FromSeconds(30)">
+        @DateTime.Now.ToLongTimeString()
+    </cache>
+
+    <form asp-controller="Home" asp-action="Index">
+        @*<select asp-for="SomeString" asp-items="ViewBag.SomeStrings"></select>*@
+        <label asp-for="SomeString"></label>
+        <input asp-for="SomeString" />
+        <span asp-validation-for="SomeString"></span>
+        <label asp-for="SomeLargeString"></label>
+        <textarea asp-for="SomeLargeString"></textarea>
+        @* Form elements go here like: <input class="btn" type="submit"/>*@
+        <input class="btn" type="submit" />
+    </form>
+
+
+
